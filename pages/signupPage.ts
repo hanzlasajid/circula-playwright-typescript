@@ -19,7 +19,7 @@ export class SignupPage {
     this.passwordInput = page.locator('input[name="password"]').first()
     this.showPasswordButton = page.locator('[aria-label="Show password"]').first()
     this.tosCheckbox = page.locator('input[name="acceptTos"]').first() //Need aria-label or xpaths here since no testid available   
-    this.submitButton = page.locator('[data-testid="submit-button"]').first() //Need aria-label or xpaths here since no testid available
+    this.submitButton = page.locator('button[type="submit"]').first() //Need aria-label or xpaths here since no testid available
     this.form = page.locator('[data-testid="signup-form"]').first() //Need aria-label or xpaths here since no testid available
   }
 
@@ -29,6 +29,10 @@ export class SignupPage {
 
   async handleConsentPopup() {
     
+    await this.page.waitForLoadState('domcontentloaded')
+    await this.page.click('body')
+    await this.consentBox.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {})
+   
     if (await this.consentBox.isVisible()) {
       await this.acceptButton.click()
       await expect(this.consentBox).not.toBeVisible() 
@@ -45,7 +49,8 @@ export class SignupPage {
   }
 
   async acceptTerms() {
-    await this.tosCheckbox.check()
+    const tosLabel = this.page.locator('label:has(input[name="acceptTos"])')
+    await tosLabel.click()
     await expect(this.tosCheckbox).toBeChecked()
   }
 
