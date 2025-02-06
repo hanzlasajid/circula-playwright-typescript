@@ -17,7 +17,7 @@ test.describe('Signup Flow Tests', () => {
     // Verify the next page has loaded
     await signupPage.verifySignupScreen()
 
-    await signupPage.fillPersonalDetails('John', 'Doe', '+1234567890')
+    await signupPage.fillPersonalDetails('Jan', 'Kowalski', '+1234567890')
     await signupPage.submitDetails()
 
     await signupPage.fillCompanyDetails('QA Test')

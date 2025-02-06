@@ -1,1 +1,114 @@
-# circula-playwright-typescript
+
+---
+
+## Introduction for the `Task II` and `Task III` (Scroll to the end for detailed notes on `Task I`  )
+For the exploratory testing part, I have highlighted the main emphasis in **bold letters**. I have left out performance, accessibility, or non-functional testing, as they may be out of scope for the discussion. However, I would be open to discussing what could be done in that regard in a meeting.
+
+I have assumed that users input information in a **left-to-right manner** (i.e., Deutsch or English), not from a script such as Arabic, which renders right-to-left.
+
+Other considerations, such as testing **cross-device & screen sizes**, have been left out of my testing script below, as I believe they were out of scope. However, I am open to discussing their inclusion if needed. The **matrix of real devices** for testing depends on what the customer base uses. In my current organization, we use **PostHog** to assess popular vendors and specific devices that our customers use and then test on a sample set of devices. These specifics are left out of this discussion as I do not have access to your user base statistics.
+
+---
+
+## Task II: Add error message for character limit for purpose field - Android
+
+-  Verify that the **"Add purpose"** placeholder text appears when the field is empty.
+-  Verify **recently used purposes** are displayed below the input field.
+-  Tap on a **recently used item**; it should populate the input field correctly.
+-  Verify that tapping the **right arrow (CTA)** is disabled when no text is entered.
+-  Verify **keyboard behavior**: 
+    - Does the keyboard open automatically when tapping the input field?
+    - The keyboard should not actively block text on the screen.
+
+
+-  Verify that the **character counter appears at 500 characters** and updates onwards.
+-  Verify that the **counter correctly reflects** the exact number of characters entered.
+-  Verify that the **counter color changes** (e.g., warning color at 1000 characters).
+-  Verify that as the user types, the **text area expands** to accommodate more lines.
+-  Verify **line breaks are handled correctly**.
+-  Verify if **long words (without spaces) break properly** without UI overflow.
+-  **Verify typing continuously** to ensure the UI does not lag on the device.
+-  Verify **copy-pasting behavior**: Users should be able to copy content into the text box from other apps.
+-  Verify that **scrolling is enabled** inside the field when reaching maximum visible rows.
+-  Verify **smooth scrolling** when content overflows.
+
+
+-  Verify that the **text field turns red** when exceeding 1,000 characters (error state).
+-  Verify the **CTA button is disabled** when exceeding 1,000 characters.
+-  Verify that when characters are reduced to <= 1,000, the **field returns to normal** and the CTA reactivates.
+-  Verify that the **error message disappears** immediately when input is reduced to <= 1,000 characters.
+
+---
+
+## Task III: Password Change Flow on iOS
+
+-  Verify that the **current password field is required** before submitting.
+-  Verify that the **new password field is required** before submitting.
+-  Verify that the new password **meets the criteria before allowing submission**:
+    - At least 8 characters
+    - At least one numerical character
+    - At least one letter
+-  Verify that if the **new password does not meet the requirements**, the criteria remain in an unchecked state until fulfilled.
+-  Verify that when **all password requirements are met**, the criteria turn green with a checkmark.
+
+
+-  Verify that the **Save button is disabled when**:
+    - The current password field is empty.
+    - The new password field does not meet all required criteria.
+-  Verify that the Save button is enabled only when:
+    - The current password is filled.
+    - The new password meets all required criteria.
+
+
+-  Verify that both current password and new password fields have a visibility toggle (eye icon).
+-  Verify that tapping the eye icon **toggles** between hidden (****) and visible (plain text) password format.
+
+
+-  Verify that if the **current password is incorrect**, the following occurs:
+    - The user sees a **red error message**: _"Your password is incorrect, please check it."_
+    - The current password field is **highlighted in red**.
+    - The **error disappears** when the user edits the current password field.
+-  Verify that if the **new password does not meet the criteria**, the user cannot proceed, and the criteria remain unchecked.
+
+ 
+-  Verify that when a **valid old password and a valid new password** are submitted:
+    - The **success message** is displayed: _"Your password was updated"_.
+    - The user is automatically navigated back to the settings screen.
+    - The settings page now reflects the updated password.
+
+---
+
+## Coding & Automation Practices for `Task I`
+
+I would be happy to discuss this part with you, Nataša and Aleksandr, in a meeting if you have any questions.
+
+### My Considerations:
+- **Left some commented code:** I did not remove it, as they highlight some of the things I tried and failed to implement.
+- **Selectors:** I prioritized `data-testid` where available. If not, used other attributes instead of brittle `XPath`.
+- **Did not address too many edge cases:** I focused on the main functionality and the most common use case/ happy path for this assignment. If you want to test more edge cases, we can arrange a meeting to discuss what should be tested, and how I would implement it.
+- **Assertions:** Used a few web-first assertions to avoid flaky tests.
+- **Chaining & Filtering:** Minimized reliance on explicit waits, and used Playwright’s auto-waiting capabilities instead.
+- **Used Page Object Model (POM):** Encapsulation, reusability, and maintainability were prioritized as much as they could be.
+- **Sharding:** Tests can be split across multiple environments. However, since the test suite is small, it is not necessary.
+- **Linting & Formatting:** Ensured consistency via `ESLint` & `Prettier`.
+- **CI/CD Integration:** I did not deem it to be in the scope for any CI/CD discussion for this assignment. However, these tests are usually expected to be run with every commit. We can arrange that using GitHub Actions or any other CI/CD tool that Circula uses.
+
+## How to Set Up the Project on Your Machine
+
+1. **Clone the repo:**
+   ```sh
+   git clone https://github.com/hanzlasajid/circula-playwright-typescript.git
+   cd circula-playwright-typescript
+   ```
+2. **Install dependencies:**
+   ```sh
+   npm install
+   ```
+3. **Run Playwright setup:**
+   ```sh
+   npx playwright install
+   ```
+4. **Execute the tests:**
+   ```sh
+   npx playwright test
+   ```

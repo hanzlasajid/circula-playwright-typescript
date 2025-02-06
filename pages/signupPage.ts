@@ -105,11 +105,11 @@ export class SignupPage {
 async verifySignupScreen() {
     // Check if the "Step 2/3" text is visible on the second page
     const stepIndicator = this.page.locator('div[aria-live="polite"]:has-text("Step 2/3")')
-    await expect(stepIndicator).toBeVisible()  // Ensure the page indicator for Step 2/3 is visible
+    await expect(stepIndicator).toBeVisible()  
   }
 
   async fillPersonalDetails(firstName: string, lastName: string, phoneNumber: string) {
-    await this.verifySignupScreen() // Ensuring on the right screen before filling
+    await this.verifySignupScreen() 
     await this.firstNameInput.fill(firstName)
     await this.lastNameInput.fill(lastName)
     await this.phoneNumberInput.fill(phoneNumber)
@@ -121,7 +121,7 @@ async verifySignupScreen() {
 
   async submitDetails() {
     await this.continueButton.click()
-    await this.page.waitForLoadState('domcontentloaded') // Ensure navigation is complete
+    await this.page.waitForLoadState('domcontentloaded') 
   }
 
   async fillCompanyDetails(companyName: string) {
@@ -142,11 +142,10 @@ async verifySignupScreen() {
     await this.countryDropdown.click() // Open dropdown
     await this.page.waitForTimeout(500) // Ensure dropdown is ready
     await this.countryDropdown.fill("Sweden") // Type the first few letters
-// Wait for dropdown to expand and list options
-//     await this.page.waitForSelector('[aria-controls="downshift-:rl:-menu"] [role="option"]', { state: 'visible' });
-//  Select the first visible option from the list
-//     const firstOption = this.page.locator('[aria-controls="downshift-:rl:-menu"] [role="option"]').first();
-//     await this.page.keyboard.press('ArrowDown'); // Navigate to first option
+
+//     await this.page.waitForSelector('[aria-controls="downshift-:rl:-menu"] [role="option"]', { state: 'visible' })
+//     const firstOption = this.page.locator('[aria-controls="downshift-:rl:-menu"] [role="option"]').first()
+//     await this.page.keyboard.press('ArrowDown') // Navigate to first option
     await this.page.keyboard.press('Enter')
    // await this.page.locator('body').click()
     //await this.page.locator('[data-testid="hdyhau-dropdown"]').click()
