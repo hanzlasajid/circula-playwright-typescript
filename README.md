@@ -122,3 +122,58 @@ I would be happy to discuss this part with you, Nataša and Aleksandr, in a meet
    ```sh
    npx playwright test
    ```
+
+##   Checklist for Task 1 - Signup Flow @ https://circula-qa-challenge.vercel.app/users/sign_up
+
+`I have added a detailed checklist for the test cases for Task 1. As this is a very detailed checklist (and the task said to 'prepare a few automated tests for the main check), not all of the following are included in my current implementation. However, if need be, I can add them to the current implementation to highlight any skill you want to assess.`
+
+### Consent Popup Handling
+    Verify that the consent popup appears on the first visit.
+    Accept the consent and verify that it disappears.
+    Verify that the popup does not reappear after acceptance (set cookies to local storage)
+
+ ### Work Email & Password Screen
+    Enter a valid email and password, then verify they are accepted.
+    Try to submit without entering an email and check for an error message.
+
+`At my current company, we used the guidelines for Regex enforced password/emails by using something similar to` https://formulashq.com/the-ultimate-guide-to-regex-for-password-validation/
+
+    Enter an invalid email format (e.g., test@com) and verify the error message.
+    Try to submit without entering a password and check for an error message.
+    Enter a short password (e.g., abc) and verify an error is displayed
+    Enter a password without special characters and check if it's accepted.
+    Use a password with spaces at the beginning or end and verify behavior.
+
+
+    Try signup with an already registered email and verify error handling
+    Try sign up without the 'I agree to the Terms and Conditions and Privacy Policy' box checked
+    Click the “Show password” button and verify that the password becomes visible.
+
+
+Success Path: Submit a valid email and password, accept TOS, and verify navigation to Step 2/3.
+The page should display “Step 2/3” upon successful transition.
+
+### Navigation to Step 2/3 (Personal Details Page)
+
+    Verify submitting without a first name (we can also decide if numbers or symbols can be parts of a name)
+    Verify submitting without a last name (same exception as above, if it is the company policy)
+    TVerify submitting without a phone number
+    Verify entering an invalid phone number format (e.g., abcd1234) and verify an error message.
+
+Success Path: Fill out first name, last name, and phone number correctly and proceed.
+
+### Company Details (Step 3/3) Validation
+    Verify the company name field accepts valid input.
+    Verify submision without a company name and verify the error.
+    Verify that dropdowns for 'Country' and 'How did you hear about us?' work correctly: In our case, I picked Sweden and DATEV.
+    Verify that the “Create an Account” button is enabled only when all required fields are filled.
+    
+### Email verification 
+
+This can be also be done via integration with Mailinator (or internally):
+
+    Verify if a verification email is sent after successful signup. 
+    Verify that the email contains a confirmation link and clicking it activates the account.
+    Verify logging in before email verification and ensure the system blocks access.
+    Verify the expiration of the verification link and check for error.
+    Verify the use oif verification link multiple times and ensure only the first attempt succeeds.
